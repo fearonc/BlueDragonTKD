@@ -33,27 +33,27 @@ document.addEventListener("DOMContentLoaded", () => {
 function loadClassData() {
   setStatus("Checking latest availability…", false);
 
-  fetch(CONFIG.DATA_URL)
-    .then(res => {
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      return res.arrayBuffer();
-    })
-    .then(buffer => {
-      const workbook = XLSX.read(buffer, { type: "array" });
-      const firstSheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[firstSheetName];
-      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false });
-
-      allClasses = parseRows(rows);
-      populateAgeFilter(allClasses);
-      renderCalendar();
-      const now = new Date();
-      setStatus(`Availability updated ${now.toLocaleTimeString()}`, false);
-    })
-    .catch(err => {
+  Papa.parse(CONFIG.CSV_URL, {
+    download: true,
+    header: false,
+    skipEmptyLines: true,
+    complete: (results) => {
+      try {
+        allClasses = parseRows(results.data);
+        populateAgeFilter(allClasses);
+        renderCalendar();
+        const now = new Date();
+        setStatus(`Availability updated ${now.toLocaleTimeString()}`, false);
+      } catch (err) {
+        console.error(err);
+        setStatus("Could not read the spreadsheet data. Check CSV_URL in config.js.", true);
+      }
+    },
+    error: (err) => {
       console.error(err);
-      setStatus("Could not reach the spreadsheet. This is often a OneDrive cross-site (CORS) restriction — see README.", true);
-    });
+      setStatus("Could not reach the spreadsheet. Check your connection or CSV_URL.", true);
+    }
+  });
 }
 
 function parseRows(rows) {
@@ -166,16 +166,22 @@ function buildClassBlock(cls, startHour) {
   const height = (endMin - startMin) * PX_PER_MIN;
 
   const isFull = cls.spacesLeft <= 0;
+  const isLow = !isFull && cls.spacesLeft <= CONFIG.LOW_AVAILABILITY_THRESHOLD;
+  const availLabel = isFull
+    ? "FULL"
+    : isLow
+      ? `Only ${cls.spacesLeft} left`
+      : "Open";
 
   const block = document.createElement("button");
   block.type = "button";
-  block.className = "class-block" + (isFull ? " full" : "");
+  block.className = "class-block" + (isFull ? " full" : "") + (isLow ? " low" : "");
   block.style.top = top + "px";
   block.style.height = Math.max(height, 34) + "px";
   block.innerHTML = `
     <div class="cb-age">${escapeHtml(cls.ageRange)}</div>
     <div class="cb-time">${formatTime(cls.startTime)}–${formatTime(cls.endTime)}</div>
-    <span class="cb-avail">${isFull ? "FULL" : cls.spacesLeft + " left"}</span>
+    <span class="cb-avail">${availLabel}</span>
   `;
 
   block.addEventListener("click", () => {
@@ -233,8 +239,13 @@ function setupModal() {
 function openModal(cls) {
   selectedClass = cls;
   document.getElementById("modalTitle").textContent = `${cls.ageRange} — ${cls.weekday}`;
+
+  const isLow = cls.spacesLeft > 0 && cls.spacesLeft <= CONFIG.LOW_AVAILABILITY_THRESHOLD;
+  const availText = isLow
+    ? `Only ${cls.spacesLeft} space${cls.spacesLeft === 1 ? "" : "s"} left`
+    : "Spaces available";
   document.getElementById("modalSub").textContent =
-    `${formatTime(cls.startTime)}–${formatTime(cls.endTime)} · ${cls.spacesLeft} space${cls.spacesLeft === 1 ? "" : "s"} left`;
+    `${formatTime(cls.startTime)}–${formatTime(cls.endTime)} · ${availText}`;
 
   document.getElementById("signupForm").reset();
   document.getElementById("formMsg").textContent = "";
