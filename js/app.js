@@ -16,22 +16,34 @@ const statusEl = document.getElementById("statusLine");
 const refreshBtn = document.getElementById("refreshBtn");
 
 document.addEventListener("DOMContentLoaded", () => {
-  emailjs.init({ publicKey: CONFIG.EMAILJS_PUBLIC_KEY });
-  loadClassData();
+  try {
+    emailjs.init({ publicKey: CONFIG.EMAILJS_PUBLIC_KEY });
+  } catch (err) {
+    console.error("EmailJS failed to initialise:", err);
+  }
+
+  // Always wire up the filter, refresh button, and modal first, so the
+  // page stays usable even if the spreadsheet fails to load below.
   refreshBtn.addEventListener("click", () => loadClassData());
   ageFilterEl.addEventListener("change", () => renderCalendar());
+  setupModal();
 
   if (CONFIG.REFRESH_MINUTES > 0) {
     refreshTimer = setInterval(loadClassData, CONFIG.REFRESH_MINUTES * 60 * 1000);
   }
 
-  setupModal();
+  loadClassData();
 });
 
 // ---------- Data loading ----------
 
 function loadClassData() {
   setStatus("Checking latest availability…", false);
+
+  if (typeof Papa === "undefined") {
+    setStatus("A required script (PapaParse) failed to load — try refreshing the page.", true);
+    return;
+  }
 
   Papa.parse(CONFIG.CSV_URL, {
     download: true,
