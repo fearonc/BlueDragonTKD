@@ -1,4 +1,4 @@
-# Riverside Sports Club — Booking Site
+# Blue Dragon TaeKwon-Do — Booking Site
 
 A two-page, no-backend booking site for GitHub Pages:
 
