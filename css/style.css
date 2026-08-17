@@ -360,6 +360,10 @@ textarea:focus-visible {
   cursor: not-allowed;
   opacity: 0.85;
 }
+.class-block.low .cb-avail {
+  border-bottom-color: var(--red);
+  color: #FFD9CE;
+}
 .class-block .cb-age {
   font-weight: 700;
   font-size: 13px;
