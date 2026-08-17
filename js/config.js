@@ -15,9 +15,9 @@ const CONFIG = {
 
   // EmailJS credentials (from emailjs.com — Account > General, and
   // Email Services / Email Templates in your EmailJS dashboard).
-  EMAILJS_PUBLIC_KEY: "YOUR_EMAILJS_PUBLIC_KEY",
-  EMAILJS_SERVICE_ID: "YOUR_EMAILJS_SERVICE_ID",
-  EMAILJS_TEMPLATE_ID: "YOUR_EMAILJS_TEMPLATE_ID",
+  EMAILJS_PUBLIC_KEY: "_Tlc_jjb9fazDuh3q",
+  EMAILJS_SERVICE_ID: "service_iwnkwnm",
+  EMAILJS_TEMPLATE_ID: "template_fo2s176",
 
   // How often (in minutes) to automatically re-check the spreadsheet
   // for updated availability while someone has the page open.
