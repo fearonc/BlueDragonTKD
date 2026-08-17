@@ -27,8 +27,8 @@ column 3 isn't a time):
 
 | Age Range | Weekday | Start Time | End Time | Max Capacity | Signups |
 |---|---|---|---|---|---|
-| Under 8s | Monday | 16:00 | 17:00 | 12 | 7 |
-| 9–12 years | Tuesday | 17:00 | 18:00 | 14 | 14 |
+| Mini Dragons (Under 7s) | Monday | 16:00 | 16:45 | 12 | 7 |
+| 8–12 years | Tuesday | 17:00 | 18:00 | 14 | 14 |
 | Adults | Friday | 19:00 | 20:30 | 20 | 3 |
 
 Notes:
