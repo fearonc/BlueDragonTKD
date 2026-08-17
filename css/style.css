@@ -1,35 +1,37 @@
 /* ===========================================================
-   TOKENS — Riverside Sports Club
+   TOKENS — Blue Dragon ITF TaeKwon-Do
    Palette:
-     --pitch:   #1B4332  (deep pitch green — headers, nav)
-     --chalk:   #F7F5F0  (chalk white — page background)
-     --navy:    #10263B  (body text)
-     --amber:   #F2A93B  (accent — CTA, live availability)
-     --line:    #C9D3CB  (hairline / muted borders)
+     --indigo:      #17235E  (dobok-trim blue — headers, nav, the "Blue" in Blue Dragon)
+     --indigo-dark: #0D1740  (deeper blue for gradients/depth)
+     --chalk:       #F7F6F2  (dobok white — page background)
+     --navy:        #17181C  (near-black — body text, like a black belt)
+     --amber:       #C9A227  (belt-gold accent — CTA, live availability)
+     --red:         #B4212B  (taeguek red — used sparingly, day labels)
+     --line:        #D8D6CE  (hairline / muted borders)
    Type:
-     Display — 'Bebas Neue' (condensed, athletic, jersey-numeral feel)
+     Display — 'Anton' (bold, condensed, high-impact — a shout rather than a jersey number)
      Body    — 'Inter'
-     Data    — 'IBM Plex Mono' (scoreboard-style numerals for times/counts)
+     Data    — 'IBM Plex Mono' (clean numerals for times/counts)
    Signature element:
-     The availability count renders as a "scoreboard" tile —
-     dark tile, mono digits, thin amber underline — echoing a
-     stadium scoreboard rather than a generic pill/badge.
+     The availability count renders as a small "belt stripe" tag —
+     dark tag, gold text, thin coloured underline — a nod to belt-rank
+     stripes rather than a generic pill/badge.
 =========================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
 :root {
-  --pitch: #1B4332;
-  --pitch-dark: #12301F;
-  --chalk: #F7F5F0;
-  --navy: #10263B;
-  --amber: #F2A93B;
-  --amber-dark: #D98F1E;
-  --line: #C9D3CB;
+  --indigo: #17235E;
+  --indigo-dark: #0D1740;
+  --chalk: #F7F6F2;
+  --navy: #17181C;
+  --amber: #C9A227;
+  --amber-dark: #A9860F;
+  --line: #D8D6CE;
   --white: #FFFFFF;
-  --red: #B5432B;
+  --red: #B4212B;
 
-  --font-display: 'Bebas Neue', sans-serif;
+  --font-display: 'Anton', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-data: 'IBM Plex Mono', monospace;
 }
@@ -72,7 +74,7 @@ textarea:focus-visible {
 
 /* ---------- Nav ---------- */
 .site-nav {
-  background: var(--pitch);
+  background: var(--indigo);
   color: var(--chalk);
 }
 .site-nav .container {
@@ -117,7 +119,7 @@ textarea:focus-visible {
 .btn:hover { transform: translateY(-1px); }
 .btn-primary {
   background: var(--amber);
-  color: var(--pitch-dark);
+  color: var(--indigo-dark);
 }
 .btn-primary:hover { background: var(--amber-dark); }
 .btn-outline {
@@ -129,11 +131,11 @@ textarea:focus-visible {
 
 /* ---------- Hero ---------- */
 .hero {
-  background: var(--pitch);
+  background: var(--indigo);
   color: var(--chalk);
   background-image:
-    radial-gradient(circle at 85% 20%, rgba(242,169,59,0.15), transparent 45%),
-    linear-gradient(180deg, var(--pitch) 0%, var(--pitch-dark) 100%);
+    radial-gradient(circle at 85% 20%, rgba(201,162,39,0.18), transparent 45%),
+    linear-gradient(180deg, var(--indigo) 0%, var(--indigo-dark) 100%);
   padding: 88px 0 72px;
 }
 .hero .eyebrow {
@@ -167,7 +169,7 @@ textarea:focus-visible {
   font-size: clamp(30px, 4vw, 42px);
   letter-spacing: 0.4px;
   margin: 0 0 8px;
-  color: var(--pitch-dark);
+  color: var(--indigo-dark);
 }
 .section-sub {
   color: #4A5D54;
@@ -199,7 +201,7 @@ textarea:focus-visible {
 .class-card .age {
   font-family: var(--font-display);
   font-size: 26px;
-  color: var(--pitch-dark);
+  color: var(--indigo-dark);
   margin: 0 0 6px;
 }
 .class-card .day {
@@ -246,7 +248,7 @@ textarea:focus-visible {
   font-family: var(--font-body);
   font-size: 15px;
   padding: 10px 14px;
-  border: 2px solid var(--pitch);
+  border: 2px solid var(--indigo);
   border-radius: 3px;
   background: var(--white);
   color: var(--navy);
@@ -268,7 +270,7 @@ textarea:focus-visible {
   cursor: pointer;
   color: var(--navy);
 }
-.refresh-btn:hover { border-color: var(--pitch); }
+.refresh-btn:hover { border-color: var(--indigo); }
 
 /* Weekly calendar grid */
 .calendar-wrap {
@@ -285,7 +287,7 @@ textarea:focus-visible {
   position: relative;
 }
 .cal-header {
-  background: var(--pitch);
+  background: var(--indigo);
   color: var(--chalk);
   padding: 12px 8px;
   text-align: center;
@@ -296,7 +298,7 @@ textarea:focus-visible {
   top: 0;
   z-index: 2;
 }
-.cal-header.time-col-header { background: var(--pitch-dark); }
+.cal-header.time-col-header { background: var(--indigo-dark); }
 
 .time-col {
   border-right: 1px solid var(--line);
@@ -328,8 +330,8 @@ textarea:focus-visible {
   left: 4px;
   right: 4px;
   background: #EAF2EC;
-  border: 1px solid var(--pitch);
-  border-left: 4px solid var(--pitch);
+  border: 1px solid var(--indigo);
+  border-left: 4px solid var(--indigo);
   border-radius: 3px;
   padding: 6px 8px;
   cursor: pointer;
@@ -351,7 +353,7 @@ textarea:focus-visible {
 .class-block .cb-age {
   font-weight: 700;
   font-size: 13px;
-  color: var(--pitch-dark);
+  color: var(--indigo-dark);
   margin-bottom: 2px;
 }
 .class-block.full .cb-age { color: var(--red); }
@@ -361,7 +363,7 @@ textarea:focus-visible {
   color: #4A5D54;
   margin-bottom: 4px;
 }
-/* Signature: scoreboard-style availability tile */
+/* Signature: belt-stripe style availability tag */
 .cb-avail {
   display: inline-block;
   font-family: var(--font-data);
@@ -421,7 +423,7 @@ textarea:focus-visible {
   font-family: var(--font-display);
   font-size: 26px;
   margin: 0 0 4px;
-  color: var(--pitch-dark);
+  color: var(--indigo-dark);
 }
 .modal .modal-sub {
   font-family: var(--font-data);
@@ -448,7 +450,7 @@ textarea:focus-visible {
 }
 .form-row input:focus,
 .form-row textarea:focus {
-  border-color: var(--pitch);
+  border-color: var(--indigo);
   outline: none;
 }
 .form-row textarea { resize: vertical; min-height: 70px; }
@@ -458,5 +460,5 @@ textarea:focus-visible {
   font-size: 13.5px;
   font-weight: 600;
 }
-.form-msg.success { color: var(--pitch); }
+.form-msg.success { color: var(--indigo); }
 .form-msg.error { color: var(--red); }
