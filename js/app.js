@@ -33,45 +33,45 @@ document.addEventListener("DOMContentLoaded", () => {
 function loadClassData() {
   setStatus("Checking latest availability…", false);
 
-  Papa.parse(CONFIG.CSV_URL, {
-    download: true,
-    header: false,
-    skipEmptyLines: true,
-    complete: (results) => {
-      try {
-        allClasses = parseRows(results.data);
-        populateAgeFilter(allClasses);
-        renderCalendar();
-        const now = new Date();
-        setStatus(`Availability updated ${now.toLocaleTimeString()}`, false);
-      } catch (err) {
-        console.error(err);
-        setStatus("Could not read the spreadsheet data. Check CSV_URL in config.js.", true);
-      }
-    },
-    error: (err) => {
+  fetch(CONFIG.DATA_URL)
+    .then(res => {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.arrayBuffer();
+    })
+    .then(buffer => {
+      const workbook = XLSX.read(buffer, { type: "array" });
+      const firstSheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[firstSheetName];
+      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false });
+
+      allClasses = parseRows(rows);
+      populateAgeFilter(allClasses);
+      renderCalendar();
+      const now = new Date();
+      setStatus(`Availability updated ${now.toLocaleTimeString()}`, false);
+    })
+    .catch(err => {
       console.error(err);
-      setStatus("Could not reach the spreadsheet. Check your connection or CSV_URL.", true);
-    }
-  });
+      setStatus("Could not reach the spreadsheet. This is often a OneDrive cross-site (CORS) restriction — see README.", true);
+    });
 }
 
 function parseRows(rows) {
   // Expected columns: AgeRange, Weekday, StartTime, EndTime, MaxCapacity, Signups
   // Skip a header row if present (first cell isn't a real age-range value is hard to detect,
-  // so instead we skip a row if column 3 doesn't look like a time HH:MM).
-  const timePattern = /^\d{1,2}:\d{2}$/;
+  // so instead we skip a row if column 3 doesn't look like a time value).
+  const timePattern = /^\d{1,2}:\d{2}(:\d{2})?\s*(AM|PM)?$/i;
 
   return rows
-    .filter(r => r.length >= 6 && timePattern.test((r[2] || "").trim()))
+    .filter(r => r.length >= 6 && timePattern.test((r[2] || "").toString().trim()))
     .map(r => {
       const max = parseInt(r[4], 10) || 0;
       const signups = parseInt(r[5], 10) || 0;
       return {
-        ageRange: (r[0] || "").trim(),
-        weekday: normalizeWeekday((r[1] || "").trim()),
-        startTime: (r[2] || "").trim(),
-        endTime: (r[3] || "").trim(),
+        ageRange: (r[0] || "").toString().trim(),
+        weekday: normalizeWeekday((r[1] || "").toString().trim()),
+        startTime: (r[2] || "").toString().trim(),
+        endTime: (r[3] || "").toString().trim(),
         maxCapacity: max,
         signups: signups,
         spacesLeft: Math.max(max - signups, 0),
@@ -188,10 +188,15 @@ function buildClassBlock(cls, startHour) {
 
 // ---------- Time helpers ----------
 
-function timeToMinutes(hhmm) {
-  const m = /^(\d{1,2}):(\d{2})$/.exec(hhmm);
+function timeToMinutes(value) {
+  const m = /^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/i.exec((value || "").toString().trim());
   if (!m) return null;
-  return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+  let h = parseInt(m[1], 10);
+  const mins = parseInt(m[2], 10);
+  const period = m[3] ? m[3].toUpperCase() : null;
+  if (period === "PM" && h < 12) h += 12;
+  if (period === "AM" && h === 12) h = 0;
+  return h * 60 + mins;
 }
 
 function formatTime(hhmm) {

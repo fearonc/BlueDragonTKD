@@ -5,11 +5,13 @@
 
 const CONFIG = {
 
-  // The CSV export link from Excel Online's "Publish to the web" feature.
-  // Columns must be, in this exact order:
+  // Direct-download link to the OneDrive Excel file (not a "Publish to the
+  // web" CSV link — this reads the .xlsx file itself, which works from the
+  // OneDrive mobile app's normal Share link with ?download=1 added).
+  // Columns must be, in this exact order, on the FIRST sheet of the workbook:
   // 1) Age Range   2) Weekday   3) Start Time (HH:MM, 24hr)
   // 4) End Time (HH:MM, 24hr)   5) Max Capacity   6) Current Signups
-  CSV_URL: "https://YOUR-ONEDRIVE-PUBLISHED-CSV-LINK-HERE",
+  DATA_URL: "https://1drv.ms/x/c/868b1b6402e70eec/IQCDVVsW4PzjToSvwWA3RjL0AWJxf3bDbaQaJt80E_7_i_E?download=1",
 
   // EmailJS credentials (from emailjs.com — Account > General, and
   // Email Services / Email Templates in your EmailJS dashboard).
