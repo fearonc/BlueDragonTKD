@@ -15,7 +15,7 @@ static site can't do on its own:
 
 | Job | Service |
 |---|---|
-| Read live spreadsheet data | Excel Online's **Publish to the web** (CSV export link) |
+| Read live spreadsheet data | A OneDrive share link, converted to direct-download |
 | Send the sign-up email | **EmailJS** (free tier: 200 emails/month) |
 
 ---
@@ -40,24 +40,36 @@ Notes:
 - One row = one weekly class slot. A class that runs twice a week (e.g.
   Under 8s on both Monday and Wednesday) needs two rows.
 
-### Publish it to the web as CSV
+### Get a live link to the file (works entirely from the OneDrive mobile app)
 
-1. Open the file in **Excel Online** (via OneDrive).
-2. **File → Share → Publish to web**.
-3. Choose the relevant sheet, and set the format dropdown to
-   **Comma Separated Values (.csv)**.
-4. Click **Publish**, then copy the generated link.
-5. Paste that link into `js/config.js` as `CSV_URL`.
+1. In the OneDrive app, open the file's **•••** menu → **Share**, set it to
+   **Anyone with the link** (view only), and **Copy Link**.
+2. Add `?download=1` to the end of that link (or `&download=1` if it already
+   has a `?` in it). This turns the normal "open in viewer" link into a
+   direct-download link.
+3. Paste that link into `js/config.js` as `DATA_URL`.
 
-This link is a public, read-only, always-current CSV snapshot of that sheet —
-anyone with the link can view the data (not edit it), so don't put anything
-sensitive in that spreadsheet.
+This avoids Excel Online's **Publish to the web** feature entirely, which is
+awkward to reach from a phone browser since it's normally a desktop-ribbon
+option.
+
+**A caveat worth knowing:** a link that downloads fine when you paste it into
+your phone's browser isn't a guaranteed sign it'll work from the *website* —
+the site fetches the file in the background (a "cross-site" request), which
+OneDrive doesn't always allow the same way it allows a direct visit. Test the
+live booking page once this is deployed; if the calendar shows a "Could not
+reach the spreadsheet" message, that's what's happening. The fallback in that
+case is Excel Online's **Publish to the web** (File → Share → Publish to
+web → choose the sheet → format: **Comma Separated Values (.csv)**), which
+*is* built for exactly this kind of embedding and reliably allows it — you'd
+just need a one-off desktop session (or your phone browser's "Desktop site"
+toggle) to reach that menu, then never need to touch it again as the sheet
+updates automatically.
 
 **Updating availability:** when you get the "New Class Sign Up" email, open
 the spreadsheet and increase the **Signups** number for that class as usual.
-The published link updates automatically within a few minutes, and the site
-re-checks it every 5 minutes (configurable via `REFRESH_MINUTES`), or
-instantly if a visitor clicks **Refresh availability**.
+The site re-checks the link every 5 minutes (configurable via
+`REFRESH_MINUTES`), or instantly if a visitor clicks **Refresh availability**.
 
 ---
 
