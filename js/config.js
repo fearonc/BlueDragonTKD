@@ -5,13 +5,13 @@
 
 const CONFIG = {
 
-  // Direct-download link to the OneDrive Excel file (not a "Publish to the
-  // web" CSV link — this reads the .xlsx file itself, which works from the
-  // OneDrive mobile app's normal Share link with ?download=1 added).
-  // Columns must be, in this exact order, on the FIRST sheet of the workbook:
+  // The CSV export link from Excel Online's "Publish to the web" feature.
+  // (A direct OneDrive share link was tried first but blocked by CORS —
+  // Publish to the web is specifically built to allow cross-site fetches.)
+  // Columns must be, in this exact order:
   // 1) Age Range   2) Weekday   3) Start Time (HH:MM, 24hr)
   // 4) End Time (HH:MM, 24hr)   5) Max Capacity   6) Current Signups
-  DATA_URL: "https://1drv.ms/x/c/868b1b6402e70eec/IQCDVVsW4PzjToSvwWA3RjL0AWJxf3bDbaQaJt80E_7_i_E?download=1",
+  CSV_URL: "https://YOUR-ONEDRIVE-PUBLISHED-CSV-LINK-HERE",
 
   // EmailJS credentials (from emailjs.com — Account > General, and
   // Email Services / Email Templates in your EmailJS dashboard).
@@ -26,4 +26,9 @@ const CONFIG = {
   // Calendar display window (24hr). Adjust to match your club's hours.
   CALENDAR_START_HOUR: 8,
   CALENDAR_END_HOUR: 21,
+
+  // Once spaces left drops to this number or below, the calendar switches
+  // from "Open" to "Only X left" so it reads as urgency rather than a
+  // slightly odd-looking countdown from the very first booking.
+  LOW_AVAILABILITY_THRESHOLD: 5,
 };
