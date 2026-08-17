@@ -1,13 +1,13 @@
 /* ===========================================================
    TOKENS — Blue Dragon ITF TaeKwon-Do
-   Palette:
-     --indigo:      #17235E  (dobok-trim blue — headers, nav, the "Blue" in Blue Dragon)
-     --indigo-dark: #0D1740  (deeper blue for gradients/depth)
-     --chalk:       #F7F6F2  (dobok white — page background)
-     --navy:        #17181C  (near-black — body text, like a black belt)
-     --amber:       #C9A227  (belt-gold accent — CTA, live availability)
-     --red:         #B4212B  (taeguek red — used sparingly, day labels)
-     --line:        #D8D6CE  (hairline / muted borders)
+   Palette (pulled from the club emblem):
+     --indigo:      #1E3A8A  (dragon blue — headers, nav, the "Blue" in Blue Dragon)
+     --indigo-dark: #10204D  (deeper blue for gradients/depth)
+     --chalk:       #FAF8F2  (emblem white/cream — page background)
+     --navy:        #14151A  (emblem black outline — body text)
+     --amber:       #C9A227  (gold fist & lettering — accent, live availability)
+     --red:         #C41E3A  (flame-red accent from the dragon — used sparingly, day labels)
+     --line:        #DAD7CE  (hairline / muted borders)
    Type:
      Display — 'Anton' (bold, condensed, high-impact — a shout rather than a jersey number)
      Body    — 'Inter'
@@ -21,15 +21,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
 :root {
-  --indigo: #17235E;
-  --indigo-dark: #0D1740;
-  --chalk: #F7F6F2;
-  --navy: #17181C;
+  --indigo: #1E3A8A;
+  --indigo-dark: #10204D;
+  --chalk: #FAF8F2;
+  --navy: #14151A;
   --amber: #C9A227;
-  --amber-dark: #A9860F;
-  --line: #D8D6CE;
+  --amber-dark: #A5800E;
+  --line: #DAD7CE;
   --white: #FFFFFF;
-  --red: #B4212B;
+  --red: #C41E3A;
 
   --font-display: 'Anton', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -85,11 +85,21 @@ textarea:focus-visible {
   padding-bottom: 16px;
 }
 .site-nav .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-display);
   font-size: 28px;
   letter-spacing: 0.5px;
   color: var(--chalk);
   text-decoration: none;
+}
+.site-nav .brand img {
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+  background: var(--chalk);
+  object-fit: cover;
 }
 .site-nav .brand span { color: var(--amber); }
 .site-nav .nav-links a {
