@@ -8,6 +8,7 @@ A two-page, no-backend booking site for GitHub Pages:
 - `css/style.css` — all styling
 - `js/config.js` — **the only file you need to edit** to connect your spreadsheet and email
 - `js/app.js` — calendar + booking logic (no editing needed)
+- `images/BD_Anniversary.jpg` — the club emblem, shown top-left in the nav on both pages
 
 There is no server involved. Two free third-party services do the two jobs a
 static site can't do on its own:
