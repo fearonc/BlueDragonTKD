@@ -194,12 +194,27 @@ textarea:focus-visible {
   gap: 20px;
 }
 .class-card {
+  display: block;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 4px;
   padding: 24px;
   position: relative;
   overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+.class-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(23,24,28,0.12);
+  border-color: var(--indigo);
+}
+.class-card.static:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--line);
 }
 .class-card::before {
   content: "";
