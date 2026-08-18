@@ -9,6 +9,7 @@ const PX_PER_MIN = 1; // 1 minute of class time = 1 pixel of block height
 let allClasses = [];      // parsed rows from the spreadsheet
 let selectedClass = null; // the class currently open in the modal
 let refreshTimer = null;
+let urlAgeFilterApplied = false; // only auto-apply the ?age= link param once
 
 const calendarEl = document.getElementById("calendar");
 const ageFilterEl = document.getElementById("ageFilter");
@@ -105,6 +106,19 @@ function populateAgeFilter(classes) {
 
   ageFilterEl.innerHTML = '<option value="all">All age groups</option>' +
     ages.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join("");
+
+  if (!urlAgeFilterApplied) {
+    urlAgeFilterApplied = true;
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get("age");
+    if (requested) {
+      const match = ages.find(a => a.trim().toLowerCase() === requested.trim().toLowerCase());
+      if (match) {
+        ageFilterEl.value = match;
+        return;
+      }
+    }
+  }
 
   if (ages.includes(current)) ageFilterEl.value = current;
 }
@@ -300,7 +314,7 @@ function handleSubmit(e) {
 
   emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
     .then(() => {
-      msgEl.textContent = "Request sent! We'll confirm your spot shortly.";
+      msgEl.textContent = "Request sent! We'll confirm your spot shortly. (This does not yet update the live count — the club will update the spreadsheet shortly.)";
       msgEl.className = "form-msg success";
       submitBtn.textContent = "Sent ✓";
     })
