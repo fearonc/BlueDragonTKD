@@ -31,4 +31,19 @@ const CONFIG = {
   // from "Open" to "Only X left" so it reads as urgency rather than a
   // slightly odd-looking countdown from the very first booking.
   LOW_AVAILABILITY_THRESHOLD: 5,
+
+
+   // Controls the order options appear in the age-group dropdown (top to
+  // bottom). "All age groups" always stays first regardless. Any age range
+  // found in the spreadsheet but NOT listed here gets added alphabetically
+  // at the end. Edit this list any time your class names change.
+  AGE_GROUP_ORDER: [
+    "Mini Dragons (Ages 2-3)",
+    "Mini Dragons (Ages 3-4)",
+    "Mini Dragons (Ages 4-6)",
+    "Home Ed Mini Dragons (Ages 4-6)",
+    "Home Ed (Ages 6+)",
+    "Ages 6+",
+    "Ages 9+ and Adults",
+  ],
 };
