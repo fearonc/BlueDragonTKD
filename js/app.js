@@ -102,7 +102,13 @@ function normalizeWeekday(value) {
 
 function populateAgeFilter(classes) {
   const current = ageFilterEl.value;
-  const ages = [...new Set(classes.map(c => c.ageRange))].sort();
+  const found = [...new Set(classes.map(c => c.ageRange))];
+  const orderList = CONFIG.AGE_GROUP_ORDER || [];
+
+  const ranked = found.filter(a => orderList.includes(a))
+    .sort((a, b) => orderList.indexOf(a) - orderList.indexOf(b));
+  const unranked = found.filter(a => !orderList.includes(a)).sort();
+  const ages = [...ranked, ...unranked];
 
   ageFilterEl.innerHTML = '<option value="all">All age groups</option>' +
     ages.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join("");
@@ -314,7 +320,7 @@ function handleSubmit(e) {
 
   emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
     .then(() => {
-      msgEl.textContent = "Request sent! We'll confirm your spot shortly. (This does not yet update the live count — the club will update the spreadsheet shortly.)";
+      msgEl.textContent = "Request sent! We'll confirm your spot shortly.";
       msgEl.className = "form-msg success";
       submitBtn.textContent = "Sent ✓";
     })
