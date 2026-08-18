@@ -4,7 +4,8 @@
 // ===========================================================
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-const PX_PER_MIN = 1; // 1 minute of class time = 1 pixel of block height
+const PX_PER_MIN = 2; // pixels per minute of class time — taller than real-time-scale so text fits inside the block
+const MIN_BLOCK_HEIGHT = 72; // guarantees room for age/time/availability text even on very short classes
 
 let allClasses = [];      // parsed rows from the spreadsheet
 let selectedClass = null; // the class currently open in the modal
@@ -209,7 +210,7 @@ function buildClassBlock(cls, startHour) {
   block.type = "button";
   block.className = "class-block" + (isFull ? " full" : "") + (isLow ? " low" : "");
   block.style.top = top + "px";
-  block.style.height = Math.max(height, 34) + "px";
+  block.style.height = Math.max(height, MIN_BLOCK_HEIGHT) + "px";
   block.innerHTML = `
     <div class="cb-age">${escapeHtml(cls.ageRange)}</div>
     <div class="cb-time">${formatTime(cls.startTime)}–${formatTime(cls.endTime)}</div>
@@ -320,7 +321,7 @@ function handleSubmit(e) {
 
   emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
     .then(() => {
-      msgEl.textContent = "Request sent! We'll confirm your spot shortly.";
+      msgEl.textContent = "Request sent! We'll confirm your spot shortly. (This does not yet update the live count — the club will update the spreadsheet shortly.)";
       msgEl.className = "form-msg success";
       submitBtn.textContent = "Sent ✓";
     })
