@@ -211,6 +211,15 @@ textarea:focus-visible {
   box-shadow: 0 6px 16px rgba(23,24,28,0.12);
   border-color: var(--indigo);
 }
+.class-card,
+.class-card:visited,
+.class-card:hover,
+.class-card:active {
+  text-decoration: none;
+}
+.class-card * {
+  text-decoration: none;
+}
 .class-card.static:hover {
   transform: none;
   box-shadow: none;
@@ -345,7 +354,7 @@ textarea:focus-visible {
     var(--line) 0,
     var(--line) 1px,
     transparent 1px,
-    transparent 60px
+    transparent 120px
   );
 }
 .day-col:last-child { border-right: none; }
@@ -354,6 +363,7 @@ textarea:focus-visible {
   position: absolute;
   left: 4px;
   right: 4px;
+  overflow: hidden;
   background: #EAF2EC;
   border: 1px solid var(--indigo);
   border-left: 4px solid var(--indigo);
