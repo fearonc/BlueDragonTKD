@@ -260,10 +260,20 @@ function setupModal() {
   const overlay = document.getElementById("modalOverlay");
   const closeBtn = document.getElementById("modalClose");
   const form = document.getElementById("signupForm");
+  const contactNumberPreferred = document.getElementById("contactNumberPreferred");
+  const emailAddressPreferred = document.getElementById("emailAddressPreferred");
 
   closeBtn.addEventListener("click", closeModal);
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) closeModal();
+  });
+
+  // The preference is optional, but only one contact method can be selected.
+  contactNumberPreferred.addEventListener("change", () => {
+    if (contactNumberPreferred.checked) emailAddressPreferred.checked = false;
+  });
+  emailAddressPreferred.addEventListener("change", () => {
+    if (emailAddressPreferred.checked) contactNumberPreferred.checked = false;
   });
 
   form.addEventListener("submit", handleSubmit);
@@ -306,7 +316,9 @@ function handleSubmit(e) {
     booker_name: document.getElementById("yourName").value.trim(),
     participant_name: document.getElementById("participantName").value.trim(),
     contact_number: document.getElementById("contactNumber").value.trim(),
+    contact_number_preferred: document.getElementById("contactNumberPreferred").checked ? "(Preferred)" : "",
     email_address: document.getElementById("emailAddress").value.trim(),
+    email_address_preferred: document.getElementById("emailAddressPreferred").checked ? "(Preferred)" : "",
     note: document.getElementById("note").value.trim() || "—",
     class_age_range: selectedClass.ageRange,
     class_day: selectedClass.weekday,
