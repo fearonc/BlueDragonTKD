@@ -487,6 +487,32 @@ textarea:focus-visible {
   border-radius: 3px;
   background: var(--chalk);
 }
+.contact-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-input-row > input[type="tel"],
+.contact-input-row > input[type="email"] {
+  flex: 1;
+  min-width: 0;
+}
+.preferred-contact-label {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+  margin: 0 !important;
+  white-space: nowrap;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  cursor: pointer;
+}
+.preferred-contact-label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  accent-color: var(--indigo);
+}
 .form-row input:focus,
 .form-row textarea:focus {
   border-color: var(--indigo);
