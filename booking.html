@@ -72,11 +72,23 @@
       </div>
       <div class="form-row">
         <label for="contactNumber">Contact number</label>
-        <input type="tel" id="contactNumber" required>
+        <div class="contact-input-row">
+          <input type="tel" id="contactNumber" required>
+          <label class="preferred-contact-label" for="contactNumberPreferred">
+            <input type="checkbox" id="contactNumberPreferred" name="preferredContact">
+            This is my preferred contact
+          </label>
+        </div>
       </div>
       <div class="form-row">
         <label for="emailAddress">Email address</label>
-        <input type="email" id="emailAddress" required>
+        <div class="contact-input-row">
+          <input type="email" id="emailAddress" required>
+          <label class="preferred-contact-label" for="emailAddressPreferred">
+            <input type="checkbox" id="emailAddressPreferred" name="preferredContact">
+            This is my preferred contact
+          </label>
+        </div>
       </div>
       <div class="form-row">
         <label for="note">Note (optional)</label>

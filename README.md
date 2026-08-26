@@ -85,7 +85,7 @@ The site re-checks the link every 5 minutes (configurable via
      ```
      New booking request
 
-     From: {{booker_name}} ({{email_address}}, {{contact_number}})
+     From: {{booker_name}} ({{email_address}} {{email_address_preferred}}, {{contact_number}} {{contact_number_preferred}})
      Participant: {{participant_name}}
 
      Class: {{class_age_range}} — {{class_day}}, {{class_time}}
@@ -93,6 +93,8 @@ The site re-checks the link every 5 minutes (configurable via
 
      Note: {{note}}
      ```
+   - The two `*_preferred` variables render as `(Preferred)` when the
+     corresponding checkbox is selected, and otherwise render nothing.
    - Set the **To email** field to your own booking inbox address.
    - Note the **Template ID**.
 4. **Account → General** and copy your **Public Key**.
