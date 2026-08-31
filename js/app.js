@@ -262,6 +262,9 @@ function setupModal() {
   const form = document.getElementById("signupForm");
   const contactNumberPreferred = document.getElementById("contactNumberPreferred");
   const emailAddressPreferred = document.getElementById("emailAddressPreferred");
+  const dobDay = document.getElementById("dobDay");
+const dobMonth = document.getElementById("dobMonth");
+const dobYear = document.getElementById("dobYear");
 
   closeBtn.addEventListener("click", closeModal);
   overlay.addEventListener("click", (e) => {
