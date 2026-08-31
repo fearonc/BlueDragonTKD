@@ -278,7 +278,21 @@ const dobYear = document.getElementById("dobYear");
   emailAddressPreferred.addEventListener("change", () => {
     if (emailAddressPreferred.checked) contactNumberPreferred.checked = false;
   });
+if (dobDay && dobMonth && dobYear) {
 
+  dobDay.addEventListener("input", () => {
+    if (dobDay.value.length >= 2) {
+      dobMonth.focus();
+    }
+  });
+
+  dobMonth.addEventListener("input", () => {
+    if (dobMonth.value.length >= 2) {
+      dobYear.focus();
+    }
+  });
+
+}
   form.addEventListener("submit", handleSubmit);
 }
 
@@ -318,6 +332,10 @@ function handleSubmit(e) {
     subject: "New Class Sign Up",
     booker_name: document.getElementById("yourName").value.trim(),
     participant_name: document.getElementById("participantName").value.trim(),
+    participant_dob:
+  `${document.getElementById("dobDay").value.trim()}/` +
+  `${document.getElementById("dobMonth").value.trim()}/` +
+  `${document.getElementById("dobYear").value.trim()}`,
     contact_number: document.getElementById("contactNumber").value.trim(),
     contact_number_preferred: document.getElementById("contactNumberPreferred").checked ? "(Preferred)" : "",
     email_address: document.getElementById("emailAddress").value.trim(),
