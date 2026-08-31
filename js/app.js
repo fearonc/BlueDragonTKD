@@ -281,18 +281,27 @@ const dobYear = document.getElementById("dobYear");
 if (dobDay && dobMonth && dobYear) {
 
   dobDay.addEventListener("input", () => {
-    if (dobDay.value.length >= 2) {
+    dobDay.value = dobDay.value.replace(/\D/g, "");
+
+    if (dobDay.value.length === 2) {
       dobMonth.focus();
     }
   });
 
   dobMonth.addEventListener("input", () => {
-    if (dobMonth.value.length >= 2) {
+    dobMonth.value = dobMonth.value.replace(/\D/g, "");
+
+    if (dobMonth.value.length === 2) {
       dobYear.focus();
     }
   });
 
+  dobYear.addEventListener("input", () => {
+    dobYear.value = dobYear.value.replace(/\D/g, "");
+  });
+
 }
+
   form.addEventListener("submit", handleSubmit);
 }
 
