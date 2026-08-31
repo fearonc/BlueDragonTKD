@@ -519,6 +519,23 @@ textarea:focus-visible {
   outline: none;
 }
 .form-row textarea { resize: vertical; min-height: 70px; }
+.dob-row {
+  display: flex;
+  gap: 10px;
+}
+
+.dob-row input {
+  text-align: center;
+}
+
+#dobDay,
+#dobMonth {
+  flex: 0 0 80px;
+}
+
+#dobYear {
+  flex: 1;
+}
 .modal .btn { width: 100%; text-align: center; }
 .form-msg {
   margin-top: 14px;
