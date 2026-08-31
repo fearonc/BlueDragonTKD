@@ -363,7 +363,7 @@ function handleSubmit(e) {
 
   emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
     .then(() => {
-      msgEl.textContent = "Request sent! We'll confirm your spot shortly. (This does not yet update the live count — the club will update the spreadsheet shortly.)";
+      msgEl.textContent = "Request sent! We'll confirm your spot shortly. (This does not yet update the live count — the club will update the availability shortly.)";
       msgEl.className = "form-msg success";
       submitBtn.textContent = "Sent ✓";
     })
