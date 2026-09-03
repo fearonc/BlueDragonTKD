@@ -218,7 +218,6 @@ function buildClassBlock(cls, startHour) {
   `;
 
   block.addEventListener("click", () => {
-    if (isFull) return;
     openModal(cls);
   });
 
@@ -307,21 +306,30 @@ if (dobDay && dobMonth && dobYear) {
 
 function openModal(cls) {
   selectedClass = cls;
+  const isFull = cls.spacesLeft <= 0;
+
   document.getElementById("modalTitle").textContent = `${cls.ageRange} — ${cls.weekday}`;
 
-  const isLow = cls.spacesLeft > 0 && cls.spacesLeft <= CONFIG.LOW_AVAILABILITY_THRESHOLD;
-  const availText = isLow
-    ? `Only ${cls.spacesLeft} space${cls.spacesLeft === 1 ? "" : "s"} left`
-    : "Spaces available";
+  const isLow = !isFull && cls.spacesLeft <= CONFIG.LOW_AVAILABILITY_THRESHOLD;
+  const availText = isFull
+    ? "Class full — waiting list"
+    : isLow
+      ? `Only ${cls.spacesLeft} space${cls.spacesLeft === 1 ? "" : "s"} left`
+      : "Spaces available";
   document.getElementById("modalSub").textContent =
     `${formatTime(cls.startTime)}–${formatTime(cls.endTime)} · ${availText}`;
+
+  document.getElementById("modalWaitlistNotice").style.display = isFull ? "block" : "none";
 
   document.getElementById("signupForm").reset();
   document.getElementById("formMsg").textContent = "";
   document.getElementById("formMsg").className = "form-msg";
   document.getElementById("submitBtn").disabled = false;
-  document.getElementById("submitBtn").textContent = "Submit booking request";
+  document.getElementById("submitBtn").textContent = isFull
+    ? "Join waiting list"
+    : "Submit booking request";
 
+  document.getElementById("modalOverlay").classList.toggle("waitlist-mode", isFull);
   document.getElementById("modalOverlay").classList.add("open");
 }
 
@@ -336,9 +344,11 @@ function handleSubmit(e) {
 
   const submitBtn = document.getElementById("submitBtn");
   const msgEl = document.getElementById("formMsg");
+  const isFull = selectedClass.spacesLeft <= 0;
 
   const params = {
-    subject: "New Class Sign Up",
+    subject: isFull ? "New Waiting List Request" : "New Class Sign Up",
+    request_type: isFull ? "Waiting list" : "Booking",
     booker_name: document.getElementById("yourName").value.trim(),
     participant_name: document.getElementById("participantName").value.trim(),
     participant_dob:
@@ -363,7 +373,9 @@ function handleSubmit(e) {
 
   emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
     .then(() => {
-      msgEl.textContent = "Request sent! We'll confirm your spot shortly. (This does not yet update the live count — the club will update the availability shortly.)";
+      msgEl.textContent = isFull
+        ? "You're on the waiting list! We'll be in touch as soon as a space becomes available."
+        : "Request sent! We'll confirm your spot shortly. (This does not yet update the live count — the club will update the availability shortly.)";
       msgEl.className = "form-msg success";
       submitBtn.textContent = "Sent ✓";
     })
@@ -372,7 +384,7 @@ function handleSubmit(e) {
       msgEl.textContent = "Something went wrong sending your request. Please try again, or contact the club directly.";
       msgEl.className = "form-msg error";
       submitBtn.disabled = false;
-      submitBtn.textContent = "Submit booking request";
+      submitBtn.textContent = isFull ? "Join waiting list" : "Submit booking request";
     });
 }
 
