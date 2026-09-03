@@ -382,7 +382,7 @@ textarea:focus-visible {
   background: #F2E9E4;
   border-color: var(--red);
   border-left-color: var(--red);
-  cursor: not-allowed;
+  cursor: pointer;
   opacity: 0.85;
 }
 .class-block.low .cb-avail {
@@ -470,6 +470,18 @@ textarea:focus-visible {
   color: var(--red);
   margin: 0 0 22px;
 }
+.modal-notice {
+  background: #F2E9E4;
+  border: 1px solid var(--red);
+  border-left: 4px solid var(--red);
+  border-radius: 3px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--indigo-dark);
+  margin: -8px 0 20px;
+}
+.modal-notice strong { color: var(--red); }
 .form-row { margin-bottom: 16px; }
 .form-row label {
   display: block;
