@@ -348,7 +348,7 @@ function handleSubmit(e) {
 
   const params = {
     subject: isFull ? "New Waiting List Request" : "New Class Sign Up",
-    request_type: isFull ? "Waiting list" : "Booking",
+    request_type: isFull ? "Waiting list" : "Available Spot",
     booker_name: document.getElementById("yourName").value.trim(),
     participant_name: document.getElementById("participantName").value.trim(),
     participant_dob:
