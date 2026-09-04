@@ -38,8 +38,7 @@ const CONFIG = {
   // found in the spreadsheet but NOT listed here gets added alphabetically
   // at the end. Edit this list any time your class names change.
   AGE_GROUP_ORDER: [
-    "Mini Dragons (Ages 2-3)",
-    "Mini Dragons (Ages 3-4)",
+    "Mini Dragons (Ages 2-4)",
     "Mini Dragons (Ages 4-6)",
     "Home Ed Mini Dragons (Ages 4-6)",
     "Home Ed (Ages 6+)",
