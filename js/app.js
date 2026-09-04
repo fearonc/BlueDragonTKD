@@ -374,7 +374,7 @@ function handleSubmit(e) {
   emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params)
     .then(() => {
       msgEl.textContent = isFull
-        ? "You're on the waiting list! We'll be in touch as soon as a space becomes available."
+        ? "Thank you for signing up! We'll be in touch shortly to confirm your spot on the wait list."
         : "Request sent! We'll confirm your spot shortly. (This does not yet update the live count — the club will update the availability shortly.)";
       msgEl.className = "form-msg success";
       submitBtn.textContent = "Sent ✓";
