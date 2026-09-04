@@ -201,7 +201,7 @@ function buildClassBlock(cls, startHour) {
   const isFull = cls.spacesLeft <= 0;
   const isLow = !isFull && cls.spacesLeft <= CONFIG.LOW_AVAILABILITY_THRESHOLD;
   const availLabel = isFull
-    ? "FULL"
+    ? "JOIN WAITLIST"
     : isLow
       ? `Only ${cls.spacesLeft} left`
       : "Open";
